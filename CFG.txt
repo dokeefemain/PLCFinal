@@ -1,0 +1,16 @@
+V = {<expr>, <final> | <level1> |  <level2> | <level3> | <level4> | <level5> | <level6> | <level7> | <level8> | <level9>}
+E = {'=','/=','||','~|','&&','/','>','<','!','-','+','%','<=','*','>=','&','++','--','(',')',VAR,INT,BOOL}
+R = {
+    <expr> --> <level9>
+    <level9> --> <level9> '=' <level8> | <level9> '/=' <level8> | <level8>
+    <level8> --> <level8> '||' <level8> | <level8> '~|' <level8> | <level7>
+    <level7> --> <level7> '&&' <level6> | <level7> '/' <level6> | <level6>
+    <level6> --> <level6> '>' <level5> | <level6> '<' <level5> | <level6> '!' <level5> | <level5>
+    <level5> --> <level5> '-' (VAR | INT) <level4> | <level5> '+' (VAR | INT) <level4> | <level5> '%' <level4> | <level4>
+    <level4> --> <level4> '+' <level3> | <level4> '-' <level3> | <level4> '<=' <level3> | <level3>
+    <level3> --> <level3> '*' <level2> | <level3> '>=' <level2> | <level3> '&' <level2> | <level2>
+    <level2> --> <level2> '++' VAR <level1> | <level2> '--' VAR <level1> | <level1>
+    <level1> --> <level1> VAR '++' <final> | <level1> <VAR '--' <final> | <final>
+    <final> --> '(' <expr> ')' | VAR | INT | BOOL
+}
+S = <expr>
